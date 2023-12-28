@@ -1,6 +1,5 @@
 package com.conexa.saude.service;
 
-import com.conexa.saude.repository.MedicoRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
