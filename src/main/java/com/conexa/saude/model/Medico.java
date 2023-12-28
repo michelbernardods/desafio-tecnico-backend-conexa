@@ -1,13 +1,11 @@
 package com.conexa.saude.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
 import java.util.UUID;
-
+//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"nome"})})
 @Entity
 public class Medico {
 
@@ -15,6 +13,7 @@ public class Medico {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+//    @Column(unique = true)
     private String email;
     private String senha;
     private String confirmacaoSenha;
