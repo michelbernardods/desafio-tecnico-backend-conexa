@@ -52,14 +52,8 @@ public class MedicoService {
         return ResponseEntity.status(HttpStatus.OK).body("Cadastro realizado com sucesso");
     }
 
-
     public ResponseEntity<Object> login(Map<String, String> loginData) {
         return ResponseEntity.ok(authService.jwt(loginData));
 
     }
-
-
-
-
-
 }
