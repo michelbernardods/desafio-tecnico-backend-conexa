@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Controller
 @RequestMapping("/api/v1")
 public class MedicoController {
@@ -21,5 +23,8 @@ public class MedicoController {
         return service.cadastrar(medico);
     }
 
-
+    @PostMapping("login")
+    public ResponseEntity<Object> login(@RequestBody Map<String, String> loginData) {
+        return service.login(loginData);
+    }
 }
