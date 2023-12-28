@@ -4,6 +4,8 @@ import com.conexa.saude.model.Agendamento;
 import com.conexa.saude.model.Paciente;
 import com.conexa.saude.repository.AgendamentoRepository;
 import com.conexa.saude.repository.PacienteRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ import java.util.Set;
 public class AgendamentoService {
     private final AgendamentoRepository agendamentoRepository;
     private final PacienteRepository pacienteRepository;
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     public AgendamentoService(AgendamentoRepository agendamentoRepository, PacienteRepository pacienteRepository) {
         this.agendamentoRepository = agendamentoRepository;
@@ -33,10 +37,12 @@ public class AgendamentoService {
 
             LocalDateTime agora = LocalDateTime.now();
             if (dataHora.isBefore(agora)) {
+                logger.info("Não é possível agendar no passado");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não é possível agendar no passado.");
             }
 
             if (nomePaciente == null || cpfPaciente == null || nomePaciente.isEmpty() || cpfPaciente.isEmpty()) {
+                logger.info("Dados de entrada inválidos");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Dados de entrada inválidos.");
             }
 
@@ -53,8 +59,10 @@ public class AgendamentoService {
             agendamento.setPaciente(paciente);
             agendamentoRepository.save(agendamento);
 
+            logger.info("Agendamento criado com sucesso");
             return ResponseEntity.status(HttpStatus.CREATED).body("Agendamento criado com sucesso.");
         } catch (Exception e) {
+            logger.info("Erro ao criar agendamento. Dados de entrada inválidos");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao criar agendamento. Dados de entrada inválidos.");
         }
     }
