@@ -10,6 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
+import java.util.Objects;
+
 import static com.conexa.saude.config.validator.Validator.validarCPF;
 
 @Service
@@ -23,18 +26,30 @@ public class MedicoService {
         this.encoder = encoder;
     }
 
-    public ResponseEntity<Object> cadastar(Medico medico) {
-        if (!validarCPF(medico.getCpf())) {
-            return ResponseEntity.status(HttpStatus.OK).body("CPF invalido");
+    public ResponseEntity<Object> cadastrar(Medico medico) {
+        Medico medicoExistente = medicoRepository.findByCpf(medico.getCpf());
+
+        if (medicoExistente != null && medicoExistente.getCpf() != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Médico com esse CPF já está cadastrado");
         }
 
-        String resul = encoder.encode(medico.getSenha());
-        System.out.println(resul);
-        medico.setSenha(resul);
+        if (!validarCPF(medico.getCpf())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CPF inválido");
+        }
+
+        if (Objects.equals(medico.getSenha(), "")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Senha não pode estar vazia.");
+        }
+
+        if (!Objects.equals(medico.getSenha(), medico.getConfirmacaoSenha())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Senha de confirmação não está igual");
+        }
+
+        String passwordEncode = encoder.encode(medico.getSenha());
+        medico.setSenha(passwordEncode);
 
         medicoRepository.save(medico);
-        return ResponseEntity.status(HttpStatus.OK).body("ok");
+        return ResponseEntity.status(HttpStatus.OK).body("Cadastro realizado com sucesso");
     }
-
 
 }

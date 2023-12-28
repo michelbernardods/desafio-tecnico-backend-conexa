@@ -2,9 +2,9 @@ package com.conexa.saude.repository;
 
 import com.conexa.saude.model.Medico;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
-public interface MedicoRepository extends JpaRepository<Medico, UUID> {
-
+@Repository
+public interface MedicoRepository extends JpaRepository<Medico, Long> {
+    Medico findByCpf(String cpf);
 }
