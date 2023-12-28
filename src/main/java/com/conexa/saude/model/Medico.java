@@ -5,7 +5,6 @@ import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
 import java.util.UUID;
-//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"nome"})})
 @Entity
 public class Medico {
 
@@ -13,9 +12,9 @@ public class Medico {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-//    @Column(unique = true)
     private String email;
     private String senha;
+    @Transient
     private String confirmacaoSenha;
     private String especialidade;
     private String cpf;
