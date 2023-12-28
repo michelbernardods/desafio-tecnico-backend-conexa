@@ -10,6 +10,5 @@ public class SaudeConexaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SaudeConexaApplication.class, args);
-		System.out.println("OK");
 	}
 }

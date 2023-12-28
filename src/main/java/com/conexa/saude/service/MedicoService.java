@@ -41,7 +41,6 @@ public class MedicoService {
 
         if (!validarCPF(medico.getCpf())) {
             logger.info("CPF inválido");
-
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CPF inválido");
         }
 
