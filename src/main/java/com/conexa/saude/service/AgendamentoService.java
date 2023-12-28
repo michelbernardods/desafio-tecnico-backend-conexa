@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static com.conexa.saude.config.validator.Validator.validarCPF;
+
 @Service
 public class AgendamentoService {
     private final AgendamentoRepository agendamentoRepository;
@@ -34,6 +36,11 @@ public class AgendamentoService {
 
             String nomePaciente = pacienteData.get("nome");
             String cpfPaciente = pacienteData.get("cpf");
+
+            if (!validarCPF(cpfPaciente)) {
+                logger.info("CPF inválido");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CPF inválido");
+            }
 
             LocalDateTime agora = LocalDateTime.now();
             if (dataHora.isBefore(agora)) {

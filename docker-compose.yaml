@@ -5,9 +5,9 @@ services:
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_DATABASE: 'nome_do_banco'
-      MYSQL_USER: 'usuario'
-      MYSQL_PASSWORD: 'senha'
-      MYSQL_ROOT_PASSWORD: 'senha_root'
+      MYSQL_DATABASE: 'conexa_db'
+      MYSQL_USER: 'conexa'
+      MYSQL_PASSWORD: 'conexa_password'
+      MYSQL_ROOT_PASSWORD: 'conexa_root'
     ports:
       - '3306:3306'
