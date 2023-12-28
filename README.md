@@ -2,11 +2,36 @@
 
 Construir uma API REST para que nossos médicos de plantão consigam se logar na plataforma e agendar atendimentos para pacientes.
 
+## Execução:
+
+● Docker instalado
+
+● Java 8+ e Maven
+
+Build da Aplicação
+```bash
+mvn clean compile
+mvn install
+```
+
+execute o docker e depois rode a aplicação na sua IDE
+```bash
+docker-compose up 
+```
+
+```bash
+run application
+```
+
 ## Autenticação
 
 ### Signup
-Precisamos de uma rota para que os médicos consigam realizar cadastro na plataforma:
+Precisamos de uma rota para que os médicos consigam realizar cadastro na plataforma: 
+
+OBS: Foi criado uma validação de CPFs válido. 
+Para obter CPF válido pode gerar aqui: https://www.4devs.com.br/gerador_de_cpf
 ```
+
 endpoint:  /api/v1/signup
 {
   "email": "medico@email.com",
@@ -53,6 +78,9 @@ Authorization: token_jwt
 
 ### Criação de atendimento
 Precisamos de uma rota onde o médico logado realiza agendamento de consulta para um paciente:
+
+OBS: Foi criado uma validação de CPFs válido.
+Para obter CPF válido pode gerar aqui: https://www.4devs.com.br/gerador_de_cpf
 ```
 endpoint: /api/v1/attendance
 Authorization: token_jwt
