@@ -37,7 +37,7 @@ public class MedicoController {
     public ResponseEntity<Object> login(@RequestBody Map<String, String> loginData) {
         return medicoService.login(loginData);
     }
-    @PostMapping("agendamento")
+    @PostMapping("attendance")
     public ResponseEntity<Object> criarAgendamento(@RequestHeader("Authorization") String token, @RequestBody Map<String, Object> agendamentoData) {
         return agendamentoService.criarAgendamento(token, agendamentoData);
     }
