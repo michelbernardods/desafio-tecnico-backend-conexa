@@ -2,15 +2,13 @@ package com.conexa.saude.service;
 
 import com.conexa.saude.model.Medico;
 import com.conexa.saude.repository.MedicoRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
-import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.conexa.saude.config.validator.Validator.validarCPF;
@@ -18,11 +16,13 @@ import static com.conexa.saude.config.validator.Validator.validarCPF;
 @Service
 public class MedicoService {
     private final MedicoRepository medicoRepository;
+    private final AuthService authService;
     private final PasswordEncoder encoder;
 
 
-    public MedicoService(MedicoRepository medicoRepository, PasswordEncoder encoder) {
+    public MedicoService(MedicoRepository medicoRepository, AuthService authService, PasswordEncoder encoder) {
         this.medicoRepository = medicoRepository;
+        this.authService = authService;
         this.encoder = encoder;
     }
 
@@ -51,5 +51,15 @@ public class MedicoService {
         medicoRepository.save(medico);
         return ResponseEntity.status(HttpStatus.OK).body("Cadastro realizado com sucesso");
     }
+
+
+    public ResponseEntity<Object> login(Map<String, String> loginData) {
+        return ResponseEntity.ok(authService.jwt(loginData));
+
+    }
+
+
+
+
 
 }
