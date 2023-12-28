@@ -4,9 +4,7 @@ import com.conexa.saude.model.Medico;
 import com.conexa.saude.service.MedicoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/api/v1")
@@ -20,7 +18,7 @@ public class MedicoController {
 
     @PostMapping("signup")
     public ResponseEntity<Object> cadastrarMedico(@RequestBody Medico medico) {
-        return service.cadastar(medico);
+        return service.cadastrar(medico);
     }
 
 
